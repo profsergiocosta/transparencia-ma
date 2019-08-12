@@ -11,6 +11,7 @@ requests = "*"
 lxml = "*"
 flask-restplus = "*"
 gunicorn = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"

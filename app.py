@@ -3,9 +3,14 @@ from flask_restplus import Resource, Api
 from flask_restplus import fields
 
 from  scrapper  import despesas
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
+
+app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list'
+
 
 api = Api(app = app, 
 		  version = "1.0", 
