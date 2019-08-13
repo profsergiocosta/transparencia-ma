@@ -1,3 +1,6 @@
+import requests
+from bs4 import BeautifulSoup as BS
+
 def despesas_por_funcao (cod, ano):
     url = "http://www.transparencia.ma.gov.br/app/despesas/por-funcao/"+ano+"/funcao/"+cod+"?#lista"
     return extrai_despesas (url)
