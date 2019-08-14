@@ -22,7 +22,7 @@ ns = api.namespace('despesas', description='Dados de despesas')
 model = api.model('Dados sobre uma função ou orgão', {
     'codigo': fields.String(description='Código da função ou orgão', example="04"),
     'nome': fields.String(description='Nome da função ou orgão', example="ADMINISTRACAO"),
-    'url_detalhe': fields.String(description='Enderço para mais detalhes', example="http://www.transparencia.ma.gov.br/app/despesas/por-funcao/2016/funcao/04?"),
+    'url_detalhe': fields.String(description='Endereço para mais detalhes', example="http://www.transparencia.ma.gov.br/app/despesas/por-funcao/2016/funcao/04?"),
     'empenhado': fields.Float(description='Valor empenhado', example=821854500.93),
     'liquidado': fields.Float(description='Valor liquidado', example=794738131.95),
     'pago': fields.Float(description='Valor pago', example=775701742.7),

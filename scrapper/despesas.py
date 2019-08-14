@@ -1,5 +1,7 @@
 import requests
 from bs4 import BeautifulSoup as BS
+from babel.numbers import parse_decimal
+
 
 def despesas_por_funcao (cod, ano):
     url = "http://www.transparencia.ma.gov.br/app/despesas/por-funcao/"+ano+"/funcao/"+cod+"?#lista"
@@ -21,9 +23,9 @@ def extrai_despesas (url):
         despesa["codigo"]  = cols[0].get_text().strip()
         despesa["nome"] = cols[1].find("a").get_text().strip()
         despesa["url_detalhe"] = cols[1].find("a").get('href')
-        despesa["empenhado"] =  float (cols[2].get_text().strip().replace (".","").replace (",","."))
-        despesa["liquidado"] =  float (cols[3].get_text().strip().replace (".","").replace (",","."))
-        despesa["pago"] =  float (cols[4].get_text().strip().replace (".","").replace (",","."))
+        despesa["empenhado"] =   parse_decimal (cols[2].get_text().strip(), locale='pt_BR')
+        despesa["liquidado"] =  parse_decimal (cols[3].get_text().strip(), locale='pt_BR')
+        despesa["pago"] =  parse_decimal (cols[2].get_text().strip(), locale='pt_BR')
         despesas.append(despesa)
 
     return despesas
