@@ -1,9 +1,9 @@
 from flask import Flask
 from flask_restplus import Resource, Api
 from flask_restplus import fields
-
-from  scrapper  import despesas
 from flask_cors import CORS
+
+from scrapper import despesas_total, despesas_por_funcao, despesas_por_orgao
 
 
 app = Flask(__name__)
@@ -44,7 +44,7 @@ class Despesas(Resource):
     @api.doc(responses={ 200: 'OK', 400: 'Despesas não encontradas' }, 
 			 params={ 'ano': 'Ano de referência para as despesas' })
     def get(self, ano):
-        return despesas.despesas_total(ano)
+        return despesas_total(ano)
 
 
 @ns.route('/<string:cod_funcao>/<string:ano>')
@@ -55,7 +55,7 @@ class DespesasPorFuncao(Resource):
     params={ 'ano': 'Ano de referência para as despesas',
     'cod_funcao' : 'Código da função (educação, saúde ...) de referência para as despesas'})
     def get(self, cod_funcao, ano):
-        return despesas.despesas_por_funcao(cod_funcao, ano)
+        return despesas_por_funcao(cod_funcao, ano)
 
 @ns.route('/<string:cod_orgao>/<string:cod_funcao>/<string:ano>')
 class DespesasPorOrgao(Resource):
@@ -65,7 +65,7 @@ class DespesasPorOrgao(Resource):
     params={ 'ano': 'Ano de referência para as despesas',
     'cod_orgao' : 'Código do orgão público de referência para as despesas'})
     def get(self, cod_orgao, cod_funcao, ano):
-        return despesas.despesas_por_orgao(cod_orgao, cod_funcao, ano)
+        return despesas_por_orgao(cod_orgao, cod_funcao, ano)
 
 if __name__ == '__main__':
     app.run(debug=True)
