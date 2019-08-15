@@ -15,7 +15,7 @@ app.config['SWAGGER_UI_DOC_EXPANSION'] = 'list'
 api = Api(app = app, 
 		  version = "1.0", 
 		  title = "Transparência Maranhão", 
-          description = "Uma API não oficial como os dados sobre as receitas e despesas do Governo do Maranhão")
+          description = "Uma API não oficial com os dados sobre as receitas e despesas do Governo do Maranhão")
           
 ns = api.namespace('despesas', description='Dados de despesas')
 

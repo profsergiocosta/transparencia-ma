@@ -31,9 +31,7 @@ def extrai_despesas (url):
     return despesas
 
 def despesas_por_orgao (orgao, funcao, ano):
-
     url = "http://www.transparencia.ma.gov.br/app/despesas/por-funcao/"+ano+"/funcao/"+funcao+"/orgao/"+orgao+"?#lista"
-    print (url)
     response = requests.get(url)
     page = BS(response.text, 'lxml')
     table = page.find ('table')
@@ -49,5 +47,4 @@ def despesas_por_orgao (orgao, funcao, ano):
         despesa["liquidado"] =  parse_decimal(cols[2].get_text().strip(), locale='pt_BR')
         despesa["pago"] = parse_decimal (cols[3].get_text().strip(), locale='pt_BR')
         despesas.append(despesa)
-
     return despesas
