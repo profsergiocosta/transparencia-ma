@@ -28,6 +28,15 @@ model = api.model('Dados sobre uma função ou orgão', {
     'pago': fields.Float(description='Valor pago', example=775701742.7),
 })
 
+model_credor = api.model('Dados sobre um dado credor', {
+    'cpf/cnpj': fields.String(description='Número do CPF ou do CNPJ do credor', example="04"),
+    'nome': fields.String(description='Nome do credor', example="ADMINISTRACAO"),
+    'url_detalhe': fields.String(description='Endereço para mais detalhes', example="http://www.transparencia.ma.gov.br/app/despesas/por-funcao/2016/funcao/04?"),
+    'empenhado': fields.Float(description='Valor empenhado', example=821854500.93),
+    'liquidado': fields.Float(description='Valor liquidado', example=794738131.95),
+    'pago': fields.Float(description='Valor pago', example=775701742.7),
+})
+
 @ns.route('/<string:ano>')
 class Despesas(Resource):
 
@@ -47,6 +56,16 @@ class DespesasPorFuncao(Resource):
     'cod_funcao' : 'Código da função (educação, saúde ...) de referência para as despesas'})
     def get(self, cod_funcao, ano):
         return despesas.despesas_por_funcao(cod_funcao, ano)
+
+@ns.route('/<string:cod_orgao>/<string:cod_funcao>/<string:ano>')
+class DespesasPorOrgao(Resource):
+
+    @api.marshal_with(model_credor, mask='*')
+    @api.doc(responses={ 200: 'OK', 400: 'Despesas não encontradas' }, 
+    params={ 'ano': 'Ano de referência para as despesas',
+    'cod_orgao' : 'Código do orgão público de referência para as despesas'})
+    def get(self, cod_orgao, cod_funcao, ano):
+        return despesas.despesas_por_orgao(cod_orgao, cod_funcao, ano)
 
 if __name__ == '__main__':
     app.run(debug=True)
