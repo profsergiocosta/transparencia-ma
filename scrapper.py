@@ -4,11 +4,13 @@ from babel.numbers import parse_decimal
 
 
 def despesas_por_funcao (cod, ano):
-    url = "http://www.transparencia.ma.gov.br/app/despesas/por-funcao/"+ano+"/funcao/"+cod+"?#lista"
+    url_base = "http://www.transparencia.ma.gov.br/app"
+    url = url_base + "/despesas/por-funcao/"+ano+"/funcao/"+cod
     return extrai_despesas (url)
 
 def despesas_total (ano):
-    url = "http://www.transparencia.ma.gov.br/app/despesas/por-funcao/"+ano+"#lista"
+    url_base = "http://www.transparencia.ma.gov.br/app"
+    url = url_base + "/despesas/por-funcao/"+ano
     return extrai_despesas (url)
 
 def extrai_despesas (url):
@@ -31,7 +33,8 @@ def extrai_despesas (url):
     return despesas
 
 def despesas_por_orgao (orgao, funcao, ano):
-    url = "http://www.transparencia.ma.gov.br/app/despesas/por-funcao/"+ano+"/funcao/"+funcao+"/orgao/"+orgao+"?#lista"
+    url_base = "http://www.transparencia.ma.gov.br/app"
+    url = url_base + "/despesas/por-funcao/"+ano+"/funcao/"+funcao+"/orgao/"+orgao
     response = requests.get(url)
     page = BS(response.text, 'lxml')
     table = page.find ('table')
